@@ -1,5 +1,5 @@
 {
-	boot.tmp.cleanOnBoot = true;
+  boot.tmp.cleanOnBoot = true;
   preservation = {
     enable = true;
 
@@ -7,24 +7,24 @@
       directories = [
         "/etc/nixos"
         "/var/lib/bluetooth"
-	"/var/lib/systemd/timers"
-	"/var/db/sudo/lectured"
-	"/var/log"
-	"/etc/NetworkManager/system-connections"
-	"/var/cache"
-	"/etc/ssh"
+        "/var/lib/systemd/timers"
+        "/var/db/sudo/lectured"
+        "/var/log"
+        "/etc/NetworkManager/system-connections"
+        "/var/cache"
+        "/etc/ssh"
         {
           directory = "/var/lib/nixos";
           inInitrd = true;
         }
-	{
-		directory = "/tmp";
-		mode = "1777";
-	}
-	{
-		directory = "/var/tmp";
-		mode = "1777";
-	}
+        {
+          directory = "/tmp";
+          mode = "1777";
+        }
+        {
+          directory = "/var/tmp";
+          mode = "1777";
+        }
       ];
 
       files = [
@@ -37,18 +37,18 @@
       users.marco = {
         directories = [
           ".ssh"
-	  ".cache"
-	  ".local/share"
-	  ".local/state"
-	  ".config/dconf"
-	  "Documents"
-	  "Downloads"
-	  "Music"
-	  "Pictures"
-	  "Projects"
-	  "nixos-config"
+          ".cache"
+          ".local/share"
+          ".local/state"
+          ".config/dconf"
+          "Documents"
+          "Downloads"
+          "Music"
+          "Pictures"
+          "Projects"
+          "nixos-config"
         ];
-      
+
         files = [
         ];
       };
@@ -56,5 +56,3 @@
     };
   };
 }
-
-
