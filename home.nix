@@ -8,7 +8,7 @@
 let
   downloadWallpapers = pkgs.writeShellApplication {
     name = "download-wallpapers";
-    text = builtins.readFile ./download-wallpapers.sh;
+    text = builtins.readFile ./local/bin/download-wallpapers.sh;
   };
   # Watches ~/.local/state/caelestia/scheme.json and forwards it to the
   # extension over Firefox's native-messaging protocol.
@@ -86,7 +86,7 @@ in
     profiles.default = {
       extensions = with pkgs.vscode-extensions; [
         asvetliakov.vscode-neovim
-        jnoortheen.nix-idjnoortheen.nix-idejnoortheen.nix-idee
+        jnoortheen.nix-ide
       ];
       userSettings = {
       };
@@ -268,6 +268,28 @@ in
         "extensions.autoDisableScopes" = 0; # auto-enable the extension below
       };
       # extensions.packages = [ caelestiafoxAddon ];
+      search = {
+        default = "google";
+        force = true;
+        engines = {
+          "google" = {
+            urls = [
+              {
+                template = "https://www.google.com/search";
+                params = [
+                  {
+                    name = "q";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
+            icon = "https://www.google.com/favicon.ico";
+            updateInterval = 24 * 60 * 60 * 1000;
+            definedAliases = [ "@g" ];
+          };
+        };
+      };
     };
   };
   home.activation.cleanMozillaDir = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
@@ -395,7 +417,7 @@ in
       ];
 
     };
-    extraLuaFiles."bindings" = ./bindings.lua;
+    extraLuaFiles."bindings" = ./config/hyprland.lua;
   };
 
   # Git
