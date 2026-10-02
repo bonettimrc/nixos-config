@@ -40,7 +40,7 @@
           ".cache"
           ".local/share"
           ".local/state"
-          ".config/dconf"
+          ".config"
           "Documents"
           "Downloads"
           "Music"

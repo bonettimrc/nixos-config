@@ -4,5 +4,6 @@
     "asvetliakov.vscode-neovim": 1
   },
   "editor.formatOnSave": true,
-  "explorer.confirmDelete": false
+  "explorer.confirmDelete": false,
+  "git.confirmSync": false
 }
