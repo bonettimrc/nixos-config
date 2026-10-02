@@ -78,6 +78,7 @@ in
     downloadWallpapers
     wl-clipboard
     nixfmt
+    tridactyl-native
   ];
 
   # Vscodium
@@ -191,7 +192,10 @@ in
   programs.librewolf = {
     enable = true;
     configPath = "${config.xdg.configHome}/librewolf";
-    nativeMessagingHosts = [ caelestiafoxManifest ];
+    nativeMessagingHosts = [
+      caelestiafoxManifest
+      pkgs.tridactyl-native
+    ];
     policies = {
       # Extensions
       ExtensionSettings =
@@ -252,6 +256,12 @@ in
             installation_mode = "normal_installed";
             default_area = "navbar";
           };
+          # Tridactyl
+          "tridactyl.vim@cmcaine.co.uk" = {
+            install_url = amo "tridactyl-vim";
+            installation_mode = "normal_installed";
+            default_area = "navbar";
+          };
 
         };
     };
@@ -269,8 +279,6 @@ in
       };
       # extensions.packages = [ caelestiafoxAddon ];
       search = {
-        default = "google";
-        force = true;
         engines = {
           "google" = {
             urls = [
@@ -292,6 +300,10 @@ in
       };
     };
   };
+
+  xdg.configFile."tridactyl/tridactylrc".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/tridactyl/tridactylrc";
+
   home.activation.cleanMozillaDir = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     			rm -rf $HOME/.mozilla
     		'';

@@ -41,6 +41,7 @@
           ".local/share"
           ".local/state"
           ".config"
+          ".steam"
           "Documents"
           "Downloads"
           "Music"
