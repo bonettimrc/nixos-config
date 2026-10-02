@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }: 
+{ config, lib, pkgs, inputs, ... }: 
 let
 	downloadWallpapers = pkgs.writeShellApplication {
 		name = "download-wallpapers";
@@ -58,13 +58,40 @@ in
 		cliphist
 		hyprpicker
 		yazi
+		xournalpp
+		rustdesk-flutter
+		steam
+		heroic
+		r2modman
+		signal-desktop
 		fuzzel
-		nsxiv
+		imv
 		fastfetch
 		jq
 		wget
 		downloadWallpapers
+		wl-clipboard
 	];
+
+	# Vscodium
+	programs.vscodium = 
+	{
+		enable = true;
+		profiles.default = {
+			extensions = with pkgs.vscode-extensions; [
+				asvetliakov.vscode-neovim
+			];
+			userSettings = {
+			};
+		};
+	};
+
+	xdg.configFile."VSCodium/User/settings.json".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/vscodium.json";
+
+	home.activation.caelestiaVscode = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+		run ${config.programs.vscodium.package}/bin/codium \
+			--install-extension ${./caelestia-vscode-integration-1.2.0.vsix} --force
+		'';
 
 	# Newsboat
 	programs.newsboat = {
@@ -110,6 +137,11 @@ in
 				};
 			}
 		);
+		config = {
+			profile = "high-quality";
+			ytdl-format = "bestvideo+bestaudio";
+			cache-default = 4000000;
+		};
 	};
 
 	# Zathura
@@ -149,6 +181,7 @@ in
 	# Librewolf
 	programs.librewolf = {
 		enable = true;
+		configPath = "${config.xdg.configHome}/librewolf";
 		nativeMessagingHosts = [ caelestiafoxManifest ];
 		policies = {
 			# Extensions
@@ -227,6 +260,9 @@ in
 			# extensions.packages = [ caelestiafoxAddon ];
 		};
 	};
+	home.activation.cleanMozillaDir = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+			rm -rf $HOME/.mozilla
+		'';
 
 	# Caelestia
 	programs.caelestia = {
@@ -347,4 +383,24 @@ in
 		settings.user.email = "bonetti.mrc@gmail.com";
 		settings.core.editor = "nvim";
 	};
+
+	# Dark theme
+	gtk = {
+		enable = true;
+		theme = {
+			name = "Adwaita-dark";
+			package = pkgs.gnome-themes-extra;
+		};
+		gtk3.extraConfig.gtk-application-prefer-dark-theme = true;
+		gtk4.extraConfig.gtk-application-prefer-dark-theme = true;
+	};
+	qt = {
+		enable = true;
+		platformTheme.name = "adwaita";
+		style = {
+			name = "adwaita-dark";
+			package = pkgs.adwaita-qt;
+		};
+	};
+	xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk];
 }

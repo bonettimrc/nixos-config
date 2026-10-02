@@ -200,3 +200,11 @@ hl.bind("XF86AudioPause", hl.dsp.global("caelestia:mediaToggle"), locked)
 hl.bind("XF86AudioNext",  hl.dsp.global("caelestia:mediaNext"), locked)
 hl.bind("XF86AudioPrev",  hl.dsp.global("caelestia:mediaPrev"), locked)
 hl.bind("XF86AudioStop",  hl.dsp.global("caelestia:mediaStop"), locked)
+
+-- cliphist Clipboard manager
+hl.on("hyprland.start", function()
+	hl.exec_cmd("uwsm app -- wl-paste --type text --watch cliphist store")
+	hl.exec_cmd("uwsm app -- wl-paste --type image --watch cliphist store")
+	hl.exec_cmd("uwsm app -- wl-clip-persist --clipboard regular")
+end)
+

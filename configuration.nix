@@ -120,7 +120,9 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
 
-  programs.dconf.enable = true;
+  programs.dconf = {
+	  enable = true;
+  };
 
   # Enable Git
   programs.git.enable = true;
