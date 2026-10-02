@@ -3,5 +3,6 @@
   "extensions.experimental.affinity": {
     "asvetliakov.vscode-neovim": 1
   },
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "explorer.confirmDelete": false
 }

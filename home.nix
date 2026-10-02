@@ -129,7 +129,8 @@ in
       			macro , set browser "mpv %u --really-quiet --no-terminal" ;open-in-browser
       		'';
   };
-  xdg.configFile."newsboat/urls".source = ./newsboat-urls;
+  xdg.configFile."newsboat/urls".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/newsboat/urls";
 
   # Mpv
   programs.mpv = {
