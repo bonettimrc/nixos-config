@@ -81,6 +81,11 @@ in
     tridactyl-native
   ];
 
+  # Rustdesk
+  xdg.configFile."rustdesk/RustDesk_local.toml".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/rustdesk/RustDesk_local.toml";
+  
+
   # Vscodium
   programs.vscodium = {
     enable = true;
@@ -361,6 +366,7 @@ in
     initExtra = ''
       			set -o vi
       			bind -m vi-insert 'Control-l: clear-screen'
+			      bind -m vi-insert '"\C-h": backward-kill-word'
       			if [ -f ${config.xdg.stateHome}/caelestia/sequences.txt ]; then
       				cat ${config.xdg.stateHome}/caelestia/sequences.txt 2> /dev/null
       			fi
