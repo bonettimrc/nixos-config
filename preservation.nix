@@ -40,7 +40,7 @@
           ".cache"
           ".local/share"
           ".local/state"
-          ".config"
+          ".config/dconf"
           ".steam"
           "Documents"
           "Downloads"

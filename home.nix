@@ -366,7 +366,7 @@ in
     initExtra = ''
       			set -o vi
       			bind -m vi-insert 'Control-l: clear-screen'
-			      bind -m vi-insert '"\C-h": backward-kill-word'
+			      bind -m vi-insert '\C-h: backward-kill-word'
       			if [ -f ${config.xdg.stateHome}/caelestia/sequences.txt ]; then
       				cat ${config.xdg.stateHome}/caelestia/sequences.txt 2> /dev/null
       			fi
