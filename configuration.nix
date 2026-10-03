@@ -131,6 +131,10 @@
     enable = true;
   };
 
+  systemd.services.systemd-machine-id-commit.enable = false;
+
+  programs.obs-studio.enableVirtualCamera = true;
+
   # Enable Git
   programs.git.enable = true;
 

@@ -40,13 +40,15 @@
           ".cache"
           ".local/share"
           ".local/state"
-          ".config/dconf"
+	  ".config/dconf"
+	  ".config/librewolf"
           ".steam"
           "Documents"
           "Downloads"
           "Music"
           "Pictures"
           "Projects"
+	  "Videos"
           "nixos-config"
         ];
 

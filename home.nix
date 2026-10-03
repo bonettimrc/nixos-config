@@ -79,7 +79,22 @@ in
     wl-clipboard
     nixfmt
     tridactyl-native
+    gimp-with-plugins
+    onlyoffice-desktopeditors
+    inkscape
   ];
+
+  # Onlyoffice
+  xdg.configFile."onlyoffice/DesktopEditors.conf".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/onlyoffice/DesktopEditors.conf";
+
+  # OBS Studio
+  programs.obs-studio = {
+    enable = true;
+    plugins = with pkgs.obs-studio-plugins; [
+      obs-backgroundremoval
+    ];
+  };
 
   # Rustdesk
   xdg.configFile."rustdesk/RustDesk_local.toml".source =
@@ -91,8 +106,18 @@ in
     enable = true;
     profiles.default = {
       extensions = with pkgs.vscode-extensions; [
-        asvetliakov.vscode-neovim
-        jnoortheen.nix-ide
+        asvetliakov.vscode-neovim		# neovim keybindings
+        jnoortheen.nix-ide			# nix
+	llvm-vs-code-extensions.vscode-clangd	# c
+	james-yu.latex-workshop			# latex
+	#mathworks.language-matlab		# matlab (not available)
+	ms-python.python			# python
+	vscjava.vscode-java-pack		# java
+	redhat.vscode-yaml			# yaml
+	redhat.vscode-xml			# xml
+	#jetbrains.kotlin-server		# kotlin (not available)
+	davidanson.vscode-markdownlint		# markdown
+	jebbs.plantuml				# plantuml
       ];
       userSettings = {
       };
@@ -341,6 +366,8 @@ in
         }
       ];
       paths.wallpaperDir = "~/Pictures/Wallpapers";
+      session.vimKeybinds = true;
+      launcher.vimKeybinds = true;
     };
     cli = {
       enable = true;
