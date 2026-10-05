@@ -82,10 +82,19 @@ in
     gimp-with-plugins
     onlyoffice-desktopeditors
     inkscape
+    kdePackages.kdenlive
     clang-tools
     clang
+    gnumake
+    python3
     texliveFull
   ];
+
+  # Java
+  programs.java = {
+    enable = true;
+    package = pkgs.temurin-bin;
+  };
 
   # Onlyoffice
   xdg.configFile."onlyoffice/DesktopEditors.conf".source =
@@ -107,20 +116,36 @@ in
   programs.vscodium = {
     enable = true;
     profiles.default = {
-      extensions = with pkgs.vscode-extensions; [
-        asvetliakov.vscode-neovim # neovim keybindings
-        jnoortheen.nix-ide # nix
-        llvm-vs-code-extensions.vscode-clangd # c
-        james-yu.latex-workshop # latex
-        #mathworks.language-matlab		# matlab (not available)
-        ms-python.python # python
-        vscjava.vscode-java-pack # java
-        redhat.vscode-yaml # yaml
-        redhat.vscode-xml # xml
-        #jetbrains.kotlin-server		# kotlin (not available)
-        davidanson.vscode-markdownlint # markdown
-        jebbs.plantuml # plantuml
-      ];
+      extensions =
+        with pkgs.vscode-extensions;
+        [
+          asvetliakov.vscode-neovim # neovim keybindings
+          jnoortheen.nix-ide # nix
+          llvm-vs-code-extensions.vscode-clangd # c
+          james-yu.latex-workshop # latex
+          ms-python.debugpy
+          ms-pyright.pyright
+          ms-python.python # python
+          redhat.java
+          vscjava.vscode-java-debug
+          vscjava.vscode-java-test
+          vscjava.vscode-maven
+          vscjava.vscode-gradle
+          vscjava.vscode-java-dependency
+          vscjava.vscode-java-pack # java
+          redhat.vscode-yaml # yaml
+          redhat.vscode-xml # xml
+          davidanson.vscode-markdownlint # markdown
+          jebbs.plantuml # plantuml
+        ]
+        ++ [
+          (pkgs.vscode-utils.extensionFromVscodeMarketplace {
+            name = "language-matlab";
+            publisher = "mathworks";
+            version = "1.3.14";
+            sha256 = "sha256-ZbbPepZvxmfZsyNx6pi4k0Jz+w9k5p3Bmlpe9lR46zY=";
+          })
+        ];
       userSettings = {
       };
     };
@@ -421,6 +446,7 @@ in
     enable = true;
     settings = {
       confirm_os_window_close = 0;
+      scrollback_pager = ''nvim -c "set signcolumn=no showtabline=0 hidden" -c "set clipboard+=unnamedplus" -c "call nvim_open_term(0, {})"'';
     };
   };
 

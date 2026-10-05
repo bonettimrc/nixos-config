@@ -26,4 +26,9 @@
       ]
     }
   ],
+  "terminal.integrated.commandsToSkipShell": [
+    "matlab.interrupt"
+  ],
+  "MATLAB.defaultEditor": false,
+  "redhat.telemetry.enabled": false,
 }
