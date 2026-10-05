@@ -82,6 +82,9 @@ in
     gimp-with-plugins
     onlyoffice-desktopeditors
     inkscape
+    clang-tools
+    clang
+    texliveFull
   ];
 
   # Onlyoffice
@@ -99,25 +102,24 @@ in
   # Rustdesk
   xdg.configFile."rustdesk/RustDesk_local.toml".source =
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/rustdesk/RustDesk_local.toml";
-  
 
   # Vscodium
   programs.vscodium = {
     enable = true;
     profiles.default = {
       extensions = with pkgs.vscode-extensions; [
-        asvetliakov.vscode-neovim		# neovim keybindings
-        jnoortheen.nix-ide			# nix
-	llvm-vs-code-extensions.vscode-clangd	# c
-	james-yu.latex-workshop			# latex
-	#mathworks.language-matlab		# matlab (not available)
-	ms-python.python			# python
-	vscjava.vscode-java-pack		# java
-	redhat.vscode-yaml			# yaml
-	redhat.vscode-xml			# xml
-	#jetbrains.kotlin-server		# kotlin (not available)
-	davidanson.vscode-markdownlint		# markdown
-	jebbs.plantuml				# plantuml
+        asvetliakov.vscode-neovim # neovim keybindings
+        jnoortheen.nix-ide # nix
+        llvm-vs-code-extensions.vscode-clangd # c
+        james-yu.latex-workshop # latex
+        #mathworks.language-matlab		# matlab (not available)
+        ms-python.python # python
+        vscjava.vscode-java-pack # java
+        redhat.vscode-yaml # yaml
+        redhat.vscode-xml # xml
+        #jetbrains.kotlin-server		# kotlin (not available)
+        davidanson.vscode-markdownlint # markdown
+        jebbs.plantuml # plantuml
       ];
       userSettings = {
       };
@@ -391,22 +393,22 @@ in
       grep = "grep --color=auto";
     };
     initExtra = ''
-      			set -o vi
-      			bind -m vi-insert 'Control-l: clear-screen'
-			      bind -m vi-insert '\C-h: backward-kill-word'
-      			if [ -f ${config.xdg.stateHome}/caelestia/sequences.txt ]; then
-      				cat ${config.xdg.stateHome}/caelestia/sequences.txt 2> /dev/null
-      			fi
-      			PS1='\[\e[91m\][\[\e[93m\]\u\[\e[92m\]@\[\e[96m\]\H\[\e[94m\]:\[\e[95m\]\w\[\e[91m\]]\n\[\e[0m\]\\$ '
-      			shopt -s checkwinsize
-      			function y() {
-      				local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-      				command yazi "$@" --cwd-file="$tmp"
-      				IFS= read -r -d ''' cwd < "$tmp"
-      				[ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
-      				rm -f -- "$tmp"
-      			}
-      			'';
+            			set -o vi
+            			bind -m vi-insert 'Control-l: clear-screen'
+      			      bind -m vi-insert '\C-h: backward-kill-word'
+            			if [ -f ${config.xdg.stateHome}/caelestia/sequences.txt ]; then
+            				cat ${config.xdg.stateHome}/caelestia/sequences.txt 2> /dev/null
+            			fi
+            			PS1='\[\e[91m\][\[\e[93m\]\u\[\e[92m\]@\[\e[96m\]\H\[\e[94m\]:\[\e[95m\]\w\[\e[91m\]]\n\[\e[0m\]\\$ '
+            			shopt -s checkwinsize
+            			function y() {
+            				local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+            				command yazi "$@" --cwd-file="$tmp"
+            				IFS= read -r -d ''' cwd < "$tmp"
+            				[ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
+            				rm -f -- "$tmp"
+            			}
+            			'';
   };
 
   # Kitty
