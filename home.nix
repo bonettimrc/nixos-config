@@ -336,6 +336,11 @@ in
   xdg.configFile."tridactyl/tridactylrc".source =
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/tridactyl/tridactylrc";
 
+  home.activation.removeLibrewolfSearch = lib.hm.dag.entryBefore [ "checkLinkTargets" ] ''
+    rm -f /home/marco/.config/librewolf/default/search.json.mozlz4
+    rm -f /home/marco/.config/librewolf/default/search.json.mozlz4.hm-backup
+  '';
+
   home.activation.cleanMozillaDir = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     			rm -rf $HOME/.mozilla
     		'';
