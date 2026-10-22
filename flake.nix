@@ -24,8 +24,8 @@
     }:
     let
       sharedModules = [
-        input.disko.nixosModules.disko
-        input.preservation.nixosModules.default
+        inputs.disko.nixosModules.disko
+        inputs.preservation.nixosModules.default
         ./configuration.nix
         ./preservation.nix
         home-manager.nixosModules.home-manager
