@@ -1,8 +1,5 @@
 {
   inputs = {
-    # This is pointing to an unstable release.
-    # If you prefer a stable release instead, you can change the word unstable to the latest number shown here: https://nixos.org/download
-    # i.e. nixos-24.11
     # Use `nix flake update` to update the flake to the latest revision of the chosen release channel.
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     disko.url = "github:nix-community/disko";
@@ -25,28 +22,44 @@
       home-manager,
       ...
     }:
+    let
+      sharedModules = [
+        input.disko.nixosModules.disko
+        input.preservation.nixosModules.default
+        ./configuration.nix
+        ./preservation.nix
+        home-manager.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.extraSpecialArgs = { inherit inputs; };
+          home-manager.users.marco = import ./home.nix;
+          home-manager.backupFileExtension = "hm-backup";
+        }
+      ];
+    in
     {
-      # NOTE: 'nixos' is the default hostname
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
-        modules = [
-
-          inputs.disko.nixosModules.disko
-          inputs.preservation.nixosModules.default
-          ./configuration.nix
-          ./disko.nix
-          ./preservation.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit inputs; };
-            home-manager.users.marco = import ./home.nix;
-
-            home-manager.backupFileExtension = "hm-backup";
-
-          }
-        ];
+      nixosConfigurations = {
+        leto-ii = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs; };
+          modules = sharedModules ++ [
+            ./hosts/leto-ii/hardware-configuration.nix
+            ./hosts/leto-ii/disko.nix
+            {
+              networking.hostName = "leto-ii";
+            }
+          ];
+        };
+        ghanima = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs; };
+          modules = sharedModules ++ [
+            ./hosts/ghanima/hardware-configuration.nix
+            ./hosts/ghanima/disko.nix
+            {
+              networking.hostName = "ghanima";
+            }
+          ];
+        };
       };
     };
 }
