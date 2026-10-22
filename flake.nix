@@ -14,6 +14,7 @@
       url = "github:caelestia-dots/shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    minegrub-theme.url = "github:Lxtharia/minegrub-theme";
   };
   outputs =
     inputs@{
@@ -26,6 +27,7 @@
       sharedModules = [
         inputs.disko.nixosModules.disko
         inputs.preservation.nixosModules.default
+	inputs.minegrub-theme.nixosModules.default
         ./configuration.nix
         ./preservation.nix
         home-manager.nixosModules.home-manager

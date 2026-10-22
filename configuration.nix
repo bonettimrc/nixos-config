@@ -16,9 +16,21 @@
     # ./hardware-configuration.nix
   ];
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.systemd-boot.enable = false;
+  boot.loader.efi.canTouchEfiVariables = false;
+  boot.loader.grub = {
+    efiInstallAsRemovable = true;
+    enable = true;
+    efiSupport = true;
+    device = "nodev";
+    useOSProber = true;
+    minegrub-theme = {
+      enable = true;
+      splash = "100% Flakes!";
+      background = "background_options/1.8  - [Classic Minecraft].png";
+      boot-options-count = 4;
+    };
+  };
 
   # Not needed anymore, imported by flake
   # networking.hostName = "nixos"; # Define your hostname.
