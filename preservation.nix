@@ -43,6 +43,7 @@
           ".config/dconf"
           ".config/librewolf"
           ".config/vesktop"
+          ".vscode-oss"
           ".steam"
           "Documents"
           "Downloads"
