@@ -27,7 +27,7 @@
       sharedModules = [
         inputs.disko.nixosModules.disko
         inputs.preservation.nixosModules.default
-	inputs.minegrub-theme.nixosModules.default
+        inputs.minegrub-theme.nixosModules.default
         ./configuration.nix
         ./preservation.nix
         home-manager.nixosModules.home-manager
@@ -49,6 +49,7 @@
             ./hosts/leto-ii/disko.nix
             {
               networking.hostName = "leto-ii";
+              boot.loader.grub.gfxmodeEfi = "1920x1080,auto";
             }
           ];
         };
