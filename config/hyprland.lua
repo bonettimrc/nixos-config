@@ -2,6 +2,8 @@ local terminal = "kitty"
 local fileManager = "y"
 local browser = "librewolf"
 
+hl.config({ cursor = { no_hardware_cursors = true } })
+
 hl.config({
     general = {
         gaps_in  = 5,
