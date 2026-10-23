@@ -72,6 +72,7 @@ in
     signal-desktop
     fuzzel
     imv
+    sshfs
     fastfetch
     jq
     wget
