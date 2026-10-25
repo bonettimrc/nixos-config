@@ -160,6 +160,27 @@
   };
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
+  services.xserver.videoDrivers = [ "nvidia" ];
+
+  hardware.nvidia = {
+   modesetting.enable = true;
+  
+  # Choose whether to use open-source kernel modules:
+  # - Set to `true` if you have an RTX 20-series or newer GPU and want open modules.
+  # - Set to `false` if you want the traditional proprietary drivers.
+   open = false; 
+
+   package = config.boot.kernelPackages.nvidiaPackages.latest;
+  };
+
+  # Steam
+  programs.steam = {
+    enable = true;
+    # This automatically downloads and registers Proton-GE for Steam:
+    extraCompatPackages = with pkgs; [
+      proton-ge-bin
+    ];
+  };
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
   #

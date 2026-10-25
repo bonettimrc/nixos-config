@@ -66,7 +66,6 @@ in
     yazi
     xournalpp
     rustdesk-flutter
-    steam
     heroic
     r2modman
     signal-desktop

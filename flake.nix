@@ -50,6 +50,7 @@
             {
               networking.hostName = "leto-ii";
               boot.loader.grub.gfxmodeEfi = "1920x1080,auto";
+	      boot.loader.grub.gfxmodeBios = "1920x1080,auto";
             }
           ];
         };
