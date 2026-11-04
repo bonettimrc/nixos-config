@@ -88,6 +88,7 @@ in
     gnumake
     python3
     texliveFull
+    prismlauncher
   ];
 
   # Java
