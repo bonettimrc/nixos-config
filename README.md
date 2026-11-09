@@ -15,6 +15,8 @@ Hosts specific configuration are located inside the `hosts/` directory:
 
 Werever possible, vim-style keybinds are used.
 
+![Keybindings](./keybinding-layout.svg)
+
 ## Wallpapers
 
 They are downloaded from my [Wallhaven](https://wallhaven.cc) profile through the `download-wallpapers.sh` script.
