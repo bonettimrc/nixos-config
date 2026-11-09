@@ -163,14 +163,14 @@
   services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia = {
-   modesetting.enable = true;
-  
-  # Choose whether to use open-source kernel modules:
-  # - Set to `true` if you have an RTX 20-series or newer GPU and want open modules.
-  # - Set to `false` if you want the traditional proprietary drivers.
-   open = false; 
+    modesetting.enable = true;
 
-   package = config.boot.kernelPackages.nvidiaPackages.latest;
+    # Choose whether to use open-source kernel modules:
+    # - Set to `true` if you have an RTX 20-series or newer GPU and want open modules.
+    # - Set to `false` if you want the traditional proprietary drivers.
+    open = false;
+
+    package = config.boot.kernelPackages.nvidiaPackages.latest;
   };
 
   # Steam
@@ -181,6 +181,12 @@
       proton-ge-bin
     ];
   };
+
+  hardware.keyboard.qmk.enable = true;
+  services.udev.extraRules = ''
+    # Keychron V1
+    KERNEL=="hidraw*", ATTRS{idVendor}=="3434", ATTRS{idProduct}=="0311", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-configure-printer"
+  '';
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
   #
