@@ -86,9 +86,15 @@ in
     clang-tools
     clang
     gnumake
-    python3
     texliveFull
     prismlauncher
+    (python3.withPackages (
+      ps: with ps; [
+        jupyter
+        ipython
+        ipykernel
+      ]
+    ))
   ];
 
   # Java
@@ -127,6 +133,11 @@ in
           ms-python.debugpy
           ms-pyright.pyright
           ms-python.python # python
+          ms-toolsai.jupyter
+          ms-toolsai.vscode-jupyter-cell-tags
+          ms-toolsai.jupyter-keymap
+          ms-toolsai.jupyter-renderers
+          ms-toolsai.vscode-jupyter-slideshow # jupyter
           redhat.java
           vscjava.vscode-java-debug
           vscjava.vscode-java-test
