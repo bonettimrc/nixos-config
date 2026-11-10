@@ -126,63 +126,76 @@ hl.config({
 ---- KEYBINDINGS ----
 ---------------------
 
-local mainMod = "SUPER" -- Sets "Windows" key as main modifier
+-- terminal
+hl.bind("SUPER + SHIFT + Return", hl.dsp.exec_cmd(terminal))
+-- close window
+hl.bind("SUPER + SHIFT + C", hl.dsp.window.close())
+-- swap master
+hl.bind("SUPER + Space", hl.dsp.layout("swapwithmaster"))
+-- session menu
+hl.bind("SUPER + SHIFT + Q", hl.dsp.global("caelestia:session"))
+-- session lock
+hl.bind("SUPER + Backspace", hl.dsp.global("caelestia:lock"))
+-- hard shutdown
+hl.bind("SUPER + SHIFT + M", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
+-- file manager
+hl.bind("SUPER + E", hl.dsp.exec_cmd("uwsm app -- " .. terminal .. " -e bash -ci " ..fileManager))
+-- news
+hl.bind("SUPER + SHIFT + N", hl.dsp.exec_cmd("uwsm app -- " .. terminal .. " -e bash -ci newsboat"))
+-- browser
+hl.bind("SUPER + W", hl.dsp.exec_cmd(browser))
+-- screenshot
+hl.bind("SUPER + SHIFT + S", hl.dsp.global("caelestia:screenshot"))
+-- color picker
+hl.bind("SUPER + C", hl.dsp.exec_cmd("hyprpicker -a"))
+-- clipboard history
+hl.bind("SUPER + V", hl.dsp.exec_cmd("pkill fuzzel || caelestia clipboard"))
+-- emoji picker
+hl.bind("SUPER + Period", hl.dsp.exec_cmd("pkill fuzzel || caelestia emoji -p"))
+-- master layout
+hl.bind("SUPER + T", function() hl.config({ general = { layout = "master" } }) end)
+-- vertical orientation
+hl.bind("SUPER + SHIFT + T", hl.dsp.layout("orientationtop"))
+-- dwindle layout
+hl.bind("SUPER + SHIFT + Y", function() hl.config({ general = { layout = "dwindle" } }) end)
+-- toggle float window
+hl.bind("SUPER + SHIFT + Space", hl.dsp.window.float({ action = "toggle" }))
+-- monocle layout
+hl.bind("SUPER + M", hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" }))
+-- center window
+hl.bind("SUPER + SHIFT + I", hl.dsp.window.center())
+-- app launcher
+hl.bind("SUPER + P", hl.dsp.global("caelestia:launcher"))
+-- focus next window
+hl.bind("SUPER + K", hl.dsp.window.cycle_next({ next = true }))
+-- focus previous window
+hl.bind("SUPER + J", hl.dsp.window.cycle_next({ next = false }))
+-- shrink master
+hl.bind("SUPER + H", hl.dsp.layout("mfact -0.1"))
+-- expand master
+hl.bind("SUPER + L", hl.dsp.layout("mfact 0.1"))
+-- pin window
+hl.bind("SUPER + S", hl.dsp.window.pin())
 
--- Example binds, see https://wiki.hypr.land/Configuring/Basics/Binds/ for more
-hl.bind(mainMod .. " + SHIFT + Return", hl.dsp.exec_cmd(terminal))
-local closeWindowBind = hl.bind(mainMod .. " + SHIFT + C", hl.dsp.window.close())
--- closeWindowBind:set_enabled(false)
-hl.bind(mainMod .. " + Space", hl.dsp.layout("swapwithmaster"))
-hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.global("caelestia:session"))
-hl.bind(mainMod .. " + Backspace", hl.dsp.global("caelestia:lock"))
+-- scroll forward through workspaces
+hl.bind("SUPER + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
+-- scroll backward through workspaces
+hl.bind("SUPER + mouse_up",   hl.dsp.focus({ workspace = "e-1" }))
 
-hl.bind(mainMod .. " + SHIFT + M", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
-hl.bind(mainMod .. " + E", hl.dsp.exec_cmd("uwsm app -- " .. terminal .. " -e bash -ci " ..fileManager))
-hl.bind(mainMod .. " + SHIFT + N", hl.dsp.exec_cmd("uwsm app -- " .. terminal .. " -e bash -ci newsboat"))
-hl.bind(mainMod .. " + W", hl.dsp.exec_cmd(browser))
-hl.bind("Print", hl.dsp.exec_cmd("caelestia screenshot"), { locked = true })
-hl.bind(mainMod .. " + SHIFT + S", hl.dsp.global("caelestia:screenshot"))
-hl.bind(mainMod .. " + C", hl.dsp.exec_cmd("hyprpicker -a"))
-hl.bind(mainMod .. " + V", hl.dsp.exec_cmd("pkill fuzzel || caelestia clipboard"))
-hl.bind(mainMod .. " + Period", hl.dsp.exec_cmd("pkill fuzzel || caelestia emoji -p"))
+-- move window
+hl.bind("SUPER + mouse:272", hl.dsp.window.drag(),   { mouse = true })
+-- resize window
+hl.bind("SUPER + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
-
-
-hl.bind(mainMod .. " + T", function() hl.config({ general = { layout = "master" } }) end)
-hl.bind(mainMod .. " + SHIFT + T", hl.dsp.layout("orientationtop"))
-hl.bind(mainMod .. " + SHIFT + Y", function() hl.config({ general = { layout = "dwindle" } }) end)
-hl.bind(mainMod .. " + SHIFT + Space", hl.dsp.window.float({ action = "toggle" }))
-hl.bind(mainMod .. " + M", hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" }))
-hl.bind(mainMod .. " + SHIFT + I", hl.dsp.window.center())
-
-hl.bind(mainMod .. " + P", hl.dsp.global("caelestia:launcher"))
--- hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
--- hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))    -- dwindle only
-hl.bind(mainMod .. " + K", hl.dsp.window.cycle_next({ next = true }))
-hl.bind(mainMod .. " + J", hl.dsp.window.cycle_next({ next = false }))
-hl.bind(mainMod .. " + H", hl.dsp.layout("mfact -0.1"))
-hl.bind(mainMod .. " + L", hl.dsp.layout("mfact 0.1"))
-
--- Switch workspaces with mainMod + [0-9]
--- Move active window to a workspace with mainMod + SHIFT + [0-9]
 for i = 1, 10 do
     local key = i % 10 -- 10 maps to key 0
-    hl.bind(mainMod .. " + " .. key,             hl.dsp.focus({ workspace = i}))
-    hl.bind(mainMod .. " + SHIFT + " .. key,     hl.dsp.window.move({ workspace = i }))
+    -- focus workspace
+    hl.bind("SUPER + " .. key,             hl.dsp.focus({ workspace = i}))
+    -- move window to workspace
+    hl.bind("SUPER + SHIFT + " .. key,     hl.dsp.window.move({ workspace = i }))
 end
 
--- Example special workspace (scratchpad)
--- hl.bind(mainMod .. " + S",         hl.dsp.workspace.toggle_special("magic"))
--- hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
-hl.bind(mainMod .. " + S", hl.dsp.window.pin())
 
--- Scroll through existing workspaces with mainMod + scroll
-hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
-hl.bind(mainMod .. " + mouse_up",   hl.dsp.focus({ workspace = "e-1" }))
-
--- Move/resize windows with mainMod + LMB/RMB and dragging
-hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(),   { mouse = true })
-hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 -- Laptop multimedia keys for volume and LCD brightness
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"), { locked = true, repeating = true })
