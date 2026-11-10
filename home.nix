@@ -65,7 +65,7 @@ in
     hyprpicker
     yazi
     xournalpp
-    rustdesk-flutter
+    #rustdesk-flutter
     heroic
     r2modman
     signal-desktop

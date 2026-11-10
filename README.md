@@ -20,3 +20,37 @@ Werever possible, vim-style keybinds are used.
 ## Wallpapers
 
 They are downloaded from my [Wallhaven](https://wallhaven.cc) profile through the `download-wallpapers.sh` script.
+
+## Usage
+
+To update when the repository changes:
+
+```bash
+sudo nixos-rebuild switch --flake ~/nixos-config#leto-ii
+```
+
+### Other NixOS useful commands
+
+To update `flake.lock`:
+
+```bash
+nix flake update
+```
+
+To open a shell with a program available:
+
+```bash
+nix-shell -p program
+```
+
+If there is a `shell.nix` file in the current directory:
+
+```bash
+nix-shell
+```
+
+To run a program a single time:
+
+```bash
+nix run nixpkgs#program
+```
