@@ -23,6 +23,12 @@ They are downloaded from my [Wallhaven](https://wallhaven.cc) profile through th
 
 ## Usage
 
+To start Hyprland:
+
+```bash
+uwsm start hyprland-uwsm.desktop
+```
+
 To update when the repository changes:
 
 ```bash
