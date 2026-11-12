@@ -246,6 +246,7 @@ in
       arRPC = false;
     };
   };
+  xdg.configFile."vesktop/settings.json".force = true;
 
   # Btop
   programs.btop = {
